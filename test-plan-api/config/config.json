@@ -1,0 +1,7 @@
+{
+  "homeDir": "/Users/siyuanqiu/Documents/artifact-storage/test-plan-api/mock-workspace",
+  "mondbBaseUrl":"mongodb://9.30.97.77:27017/",
+  "database":"testplan",
+  "job": "job",
+  "suite": "suite"
+}

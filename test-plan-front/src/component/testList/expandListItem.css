@@ -1,0 +1,8 @@
+.hideRow {
+  display: none;
+}
+
+.showRow {
+  visibility: visible;
+  height: inherit;
+}

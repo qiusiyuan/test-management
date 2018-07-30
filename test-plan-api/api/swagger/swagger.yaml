@@ -1,0 +1,469 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Test job API
+host: localhost:10011
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1/testtemp/getAllTests: #1
+    x-swagger-router-controller: test-template
+    get:
+      description: >-
+       Get a json object of contains an array called 'tests' and all stuff 
+      operationId: getAllTests
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/getAllTestsResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testtemp/rename: #4
+    x-swagger-router-controller: test-template
+    post:
+      description: >-
+       rename a test group or a test case
+      operationId: renameTest
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/renameTestBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testtemp/add: #3
+    x-swagger-router-controller: test-template
+    post:
+      description: >-
+       add a test group or a test case
+      operationId: addTest
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/addTestBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testtemp/delete: #4
+    x-swagger-router-controller: test-template
+    post:
+      description: >-
+       delete a test group or a test case
+      operationId: deleteTest
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/deleteTestBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testtemp/editTestDescription: #4
+    x-swagger-router-controller: test-template
+    post:
+      description: >-
+       edit a test description
+      operationId: editTestDescription
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editTestDescriptionBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+#########################################
+#########################################
+  /v1/testjob/listAllJobs: #1
+    x-swagger-router-controller: test-job
+    get:
+      description: >-
+       list all jobs
+      operationId: listAllJobs
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/getAllJobsResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/job/{jobName}: #1
+    x-swagger-router-controller: test-job
+    get:
+      description: >-
+       show a job
+      operationId: getJob
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/getJobResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/create/{jobName}: #2
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       create a test job
+      operationId: createJob
+      consumes:
+        - application/json
+        - application/octet-stream
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/edit/{jobName}: #2
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       edit a test job
+      operationId: editJob
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editJobBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/editJobDescription/{jobName}: #3
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       edit a test result, change status or other details
+      operationId: editJobDescription
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editJobDescriptionBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/editTestResult/{jobName}: #3
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       edit a test result, change status or other details
+      operationId: editTestResult
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editTestResultBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/editTestOwner/{jobName}: #3
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       edit a test result, change status or other details
+      operationId: editTestOwner
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editTestOwnerBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/testjob/editJobErrors/{jobName}:
+    x-swagger-router-controller: test-job
+    post:
+      description: >-
+       edit or add an error in job
+      operationId: editJobErrors
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: jobName
+          in: path
+          type: string
+          required: true
+        - name: options
+          in: body
+          schema:
+            $ref: '#/definitions/editJobErrorsBody'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+############################################
+############################################
+definitions:
+  editTestDescriptionBody:
+    type: object
+    required:
+      - description
+      - test
+    properties:
+      test:
+        type: object
+      description:
+        type: string    
+  deleteTestBody:
+    type: object
+    required:
+      - test
+    properties:
+      test:
+        type: object
+  addTestBody:
+    type: object
+    required:
+      - test
+    properties:
+      test:
+        type: object
+      description:
+        type: string
+  renameTestBody:
+    type: object
+    required:
+      - from
+      - to
+    properties:
+      from:
+        type: object
+      to:
+        type: object
+  getAllTestsResponse:
+    required:
+      - success
+      - tests
+    properties:
+      success:
+        type: boolean
+      tests:
+        type: array
+        items:
+          type: object
+######################################
+  editJobErrorsBody:
+    type: object
+    required:
+      - errorID
+    properties:
+      errorID:
+        type: string
+      descriptions:
+        type: string
+      status:
+        type: integer # 0 pending, 1 solved
+  editTestOwnerBody:
+    type: object
+    required:
+      - test
+    properties:
+      owner:
+        type: string
+      test:
+        type: object
+  editJobDescriptionBody:
+    type: object
+    required:
+      - descriptions
+    properties:
+      descriptions:
+        type: string  
+  editTestResultBody:
+    type: object
+    required:
+      - test
+    properties:
+      error:
+        type: string
+      status:
+        type: integer # 0 pending, 1 failure, 2 success
+      test:
+        type: object
+  editJobBody:
+    type: object
+    required:
+      - operation
+    properties:
+      operation:
+        type: string # 'delete' or 'add'
+      test:
+        type: array
+        items:
+          type: object
+  getAllJobsResponse:
+    required:
+      - success
+      - jobs
+    properties:
+      success:
+        type: boolean
+      jobs:
+        type: array
+        items:
+          type: object
+  getJobResponse:
+    required:
+      - success
+      - job
+    properties:
+      success:
+        type: boolean
+      job:
+        type: object
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+  
